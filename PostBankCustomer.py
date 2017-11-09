@@ -1,12 +1,15 @@
 #       importing modules and BankDatabase file
-import time,random,BanksDataBase
+import time, random, BanksDataBase
+
 TransactionDay = time.strftime('%A %d/%m/%y\n%H:%M:%S %p', time.localtime())
 IssueDay = time.strftime('%A', time.localtime())
 
 
 class BANK(object):
     BankInfo = BanksDataBase.PostBankInfo
-    print('WELCOME TO ',BankInfo[0],BankInfo[2],'\nHERE TO SERVE YOU!')
+    print('WELCOME TO ', BankInfo[0], BankInfo[2], '\nHERE TO SERVE YOU!')
+
+
 class CUSTOMER(BANK):
     def __init__(self):
         self.CustomerName = "Any CustomerName"
@@ -50,7 +53,7 @@ class CUSTOMER(BANK):
                                                 '\nRe-enter Your ID Number: '))
                 except ValueError:
                     print('Integers Please!')
-        #   check Account Existence
+        # check Account Existence
         if self.CustomerName in self.CustomerNames:
             if str(self.CustomerId) == self.CustomerIds[self.CustomerNames.index(self.CustomerName)]:
                 print('YOUR ARE ALREADY A CUSTOMER!')
@@ -88,21 +91,22 @@ class CUSTOMER(BANK):
                     break
                 else:
                     try:
-                        self.Amount = int(input('Your Amount must exceed UGX '+str(self.MinBalance + self.WithdrawCharge)+'\nRe-enter Amount: '))
+                        self.Amount = int(input('Your Amount must exceed UGX ' + str(
+                            self.MinBalance + self.WithdrawCharge) + '\nRe-enter Amount: '))
                     except ValueError:
                         print('Integers Please!')
             self.Balance = self.Amount
-            self.CustomerPhoneNo = ('0'+str(self.CustomerPhoneNo))
+            self.CustomerPhoneNo = ('0' + str(self.CustomerPhoneNo))
             #   Not to generate Duplicate AccountNo, we while the random module
             while 6:
-                self.CustomerAccountNo = (self.BankInfo[1]+str(random.randint(10000, 99999)))
+                self.CustomerAccountNo = (self.BankInfo[1] + str(random.randint(10000, 99999)))
                 if self.CustomerAccountNo not in self.CustomerAccountNos:
                     break
                 else:
                     pass
             print('Your Account Has Been Successfully Created!'
                   '\nTHANKS FOR JOINING', self.BankInfo[0], 'WE CARE!')
-            print('\n'+' '*10 + 'YOUR ACCOUNT DETAILS:\nYOUR ACCOUNT NUMBER:', self.CustomerAccountNo,
+            print('\n' + ' ' * 10 + 'YOUR ACCOUNT DETAILS:\nYOUR ACCOUNT NUMBER:', self.CustomerAccountNo,
                   '\nNAME: ', self.CustomerName, '\nRESIDENCE:', self.CustomerAddress,
                   '\nBALANCE:', self.Balance, '\nPHONE NUMBER:', self.CustomerPhoneNo,
                   '\nOPENED AT:', self.BankInfo[2], 'BRANCH \nOn', TransactionDay)
@@ -143,7 +147,7 @@ class CUSTOMER(BANK):
             print('Integers Please!')
         self.CustomerAccountNoIndex = self.Id
         self.Balance = int(self.Balances[self.Id])
-        self.CustomerName =self.CustomerNames[self.Id]
+        self.CustomerName = self.CustomerNames[self.Id]
         if self.Amount < (self.Balance - (int(self.MinBalance) + int(self.WithdrawCharge))):
             self.Balance -= (self.Amount + int(self.WithdrawCharge))
             BanksDataBase.PostBalUpdate(self)
@@ -158,29 +162,31 @@ class CUSTOMER(BANK):
                   '\nYou Need to have a Balance of UGX', self.Amount + int(self.WithdrawCharge) + int(self.MinBalance))
             print('But instead you have UGX', self.Balance, '\nThank You!')
 
-
     def GeneralInquiry(self):
         BanksDataBase.CheckDataBase(self)
-        print(' '*10+'YOUR ACCOUNT DETAILS:\nACCOUNT NUMBER: ', self.CustomerAccountNo, '\nNAME: ', self.CustomerName,
+        print(' ' * 10 + 'YOUR ACCOUNT DETAILS:\nACCOUNT NUMBER: ', self.CustomerAccountNo, '\nNAME: ',
+              self.CustomerName,
               '\nCUSTOMER ID: ', self.CustomerId, '\nBALANCE: ', self.Balance,
               '\nPHONE NUMBER: ', str(self.CustomerPhoneNo))
 
     def ApplyForLoan(self):
         BanksDataBase.CheckDataBase(self)
-        print(' '*10+'YOUR ACCOUNT DETAILS:\nACCOUNT NUMBER: ', self.CustomerAccountNo,
+        print(' ' * 10 + 'YOUR ACCOUNT DETAILS:\nACCOUNT NUMBER: ', self.CustomerAccountNo,
               '\nNAME: ', self.CustomerName, '\nBALANCE: ', self.Balance,
-              '\nPHONE NUMBER: ',str(self.CustomerPhoneNo))
+              '\nPHONE NUMBER: ', str(self.CustomerPhoneNo))
         try:
             self.Amount = int(input('\nEnter Amount To Borrow: '))
         except ValueError:
             print('Integers Please!')
-        if self.Amount >= 20*int(self.Balance) or self.Amount <= 1.5*int(self.Balance):
-            print('Amount loanable must be between', (1.5*int(self.Balance)), 'and', (20*self.Balance))
+        if self.Amount >= 20 * int(self.Balance) or self.Amount <= 1.5 * int(self.Balance):
+            print('Amount loanable must be between', (1.5 * int(self.Balance)), 'and', (20 * self.Balance))
             print('Loan Request Of', self.Amount, 'Denied!')
 
         else:
-            print('Loan Request Of', self.Amount, 'Granted!\nApplied on: ',TransactionDay)
-            self.CustomerLoansRecords.append('On '+TransactionDay+' ACCOUNT NUMBER: '+str(self.CustomerAccountNo)+' NAME: '+self.CustomerName+' LOAN AMOUNT: '+str(self.Amount)+' PHONE NUMBER: '+str(self.CustomerPhoneNo)+'\n')
+            print('Loan Request Of', self.Amount, 'Granted!\nApplied on: ', TransactionDay)
+            self.CustomerLoansRecords.append('On ' + TransactionDay + ' ACCOUNT NUMBER: ' + str(
+                self.CustomerAccountNo) + ' NAME: ' + self.CustomerName + ' LOAN AMOUNT: ' + str(
+                self.Amount) + ' PHONE NUMBER: ' + str(self.CustomerPhoneNo) + '\n')
             f = open("BANKS\PostBankFiles\LoansRecords.txt", 'w')
             for i in self.CustomerLoansRecords:
                 f.write(str(i) + "\n")
@@ -196,54 +202,56 @@ class CUSTOMER(BANK):
         self.CustomerPhoneNos.__delitem__(self.Id)
         BanksDataBase.PostAccUpdate(self)
         print("Your Account Has Been Successfully Closed.\nThanks For All Your Services!")
-    def RequestCard(self,answer):
-        self.answer =answer
+
+    def RequestCard(self, answer):
+        self.answer = answer
         self.answer = self.answer.lower()
         if self.answer == 'f':
             BanksDataBase.CheckDataBase(self)
             print(' ' * 10 + 'YOUR ACCOUNT DETAILS:\nACCOUNT NUMBER: ', self.CustomerAccountNo,
                   '\nNAME: ', self.CustomerName, '\nBALANCE: ', self.Balance,
                   '\nPHONE NUMBER: ', str(self.CustomerPhoneNo))
-            print('Your Card Will Be Issued In A Weeks Time.\nPlease Check Back Next',IssueDay,'Thanks!')
+            print('Your Card Will Be Issued In A Weeks Time.\nPlease Check Back Next', IssueDay, 'Thanks!')
         elif self.answer == 'l':
             BanksDataBase.CheckDataBase(self)
             self.Balance -= self.WithdrawCharge
             print(' ' * 10 + 'YOUR ACCOUNT DETAILS:\nACCOUNT NUMBER: ', self.CustomerAccountNo,
                   '\nNAME: ', self.CustomerName, '\nBALANCE: ', self.Balance,
                   '\nPHONE NUMBER: ', str(self.CustomerPhoneNo))
-            print('Your Card Will Be Issued In A Weeks Time On A Charge of UGX: ',self.WithdrawCharge,
+            print('Your Card Will Be Issued In A Weeks Time On A Charge of UGX: ', self.WithdrawCharge,
                   '\nPlease Check Back Next', IssueDay, 'Thanks!')
             BanksDataBase.PostBalUpdate(self)
 
     def CustomerInterface(self):
-        print("\nUSER INTERFACE\n<PRESS> 'O': To Open New Account\n<PRESS> 'D': To Deposit Cash\n<PRESS> 'W': To Withdraw Cash"
-              "\n<PRESS> 'I': To Inquire Your Current Account Status\n<PRESS> 'A': To Apply For Loan"
-              "\n<PRESS> 'C': To Close Your Account\n<PRESS> 'R': To Request For Card"
-              "\n<PRESS> 'Q': To QUIT\n")
+        print(
+            "\nUSER INTERFACE\n<PRESS> 'O': To Open New Account\n<PRESS> 'D': To Deposit Cash\n<PRESS> 'W': To Withdraw Cash"
+            "\n<PRESS> 'I': To Inquire Your Current Account Status\n<PRESS> 'A': To Apply For Loan"
+            "\n<PRESS> 'C': To Close Your Account\n<PRESS> 'R': To Request For Card"
+            "\n<PRESS> 'Q': To QUIT\n")
         self.answer = input('Enter Desired Option: ')
         self.answer = self.answer.lower()
         if self.answer == 'o':
-            CustomerObj.OpenAccount()
-            CustomerObj.MoreTransactions()
+            PostCustomerObj.OpenAccount()
+            PostCustomerObj.MoreTransactions()
         elif self.answer == 'd':
-            CustomerObj.DepositMoney()
-            CustomerObj.MoreTransactions()
+            PostCustomerObj.DepositMoney()
+            PostCustomerObj.MoreTransactions()
         elif self.answer == 'w':
-            CustomerObj.WithdrawMonney()
-            CustomerObj.MoreTransactions()
+            PostCustomerObj.WithdrawMonney()
+            PostCustomerObj.MoreTransactions()
         elif self.answer == 'i':
-            CustomerObj.GeneralInquiry()
-            CustomerObj.MoreTransactions()
+            PostCustomerObj.GeneralInquiry()
+            PostCustomerObj.MoreTransactions()
         elif self.answer == 'a':
-            CustomerObj.ApplyForLoan()
-            CustomerObj.MoreTransactions()
+            PostCustomerObj.ApplyForLoan()
+            PostCustomerObj.MoreTransactions()
         elif self.answer == 'c':
-            CustomerObj.CloseAccount()
-            CustomerObj.MoreTransactions()
+            PostCustomerObj.CloseAccount()
+            PostCustomerObj.MoreTransactions()
         elif self.answer == 'r':
-            CustomerObj.RequestCard(input('If Requesting Card for first time <PRESS> f'
+            PostCustomerObj.RequestCard(input('If Requesting Card for first time <PRESS> f'
                                           '\nLost Card? <PRESS> l\n: '))
-            CustomerObj.MoreTransactions()
+            PostCustomerObj.MoreTransactions()
         elif self.answer == 'q':
             exit()
 
@@ -251,9 +259,11 @@ class CUSTOMER(BANK):
         self.answer = input("For more Transactions <PRESS> 'M'\nTo Quit <PRESS> 'Q'\n: ")
         self.answer = self.answer.upper()
         if self.answer == "M":
-            CustomerObj.CustomerInterface()
+            PostCustomerObj.CustomerInterface()
         elif self.answer == "Q":
             exit()
 
-                # Instanciating Customer
+            # Instanciating Customer
+
+
 PostCustomerObj = CUSTOMER()

@@ -223,27 +223,27 @@ class CUSTOMER(BANK):
         self.answer = input('Enter Desired Option: ')
         self.answer = self.answer.lower()
         if self.answer == 'o':
-            CustomerObj.OpenAccount()
-            CustomerObj.MoreTransactions()
+            CentCustomerObj.OpenAccount()
+            CentCustomerObj.MoreTransactions()
         elif self.answer == 'd':
-            CustomerObj.DepositMoney()
-            CustomerObj.MoreTransactions()
+            CentCustomerObj.DepositMoney()
+            CentCustomerObj.MoreTransactions()
         elif self.answer == 'w':
-            CustomerObj.WithdrawMonney()
-            CustomerObj.MoreTransactions()
+            CentCustomerObj.WithdrawMonney()
+            CentCustomerObj.MoreTransactions()
         elif self.answer == 'i':
-            CustomerObj.GeneralInquiry()
-            CustomerObj.MoreTransactions()
+            CentCustomerObj.GeneralInquiry()
+            CentCustomerObj.MoreTransactions()
         elif self.answer == 'a':
-            CustomerObj.ApplyForLoan()
-            CustomerObj.MoreTransactions()
+            CentCustomerObj.ApplyForLoan()
+            CentCustomerObj.MoreTransactions()
         elif self.answer == 'c':
-            CustomerObj.CloseAccount()
-            CustomerObj.MoreTransactions()
+            CentCustomerObj.CloseAccount()
+            CentCustomerObj.MoreTransactions()
         elif self.answer == 'r':
-            CustomerObj.RequestCard(input('If Requesting Card for first time <PRESS> f'
+            CentCustomerObj.RequestCard(input('If Requesting Card for first time <PRESS> f'
                                           '\nLost Card? <PRESS> l\n: '))
-            CustomerObj.MoreTransactions()
+            CentCustomerObj.MoreTransactions()
         elif self.answer == 'q':
             exit()
 
@@ -251,7 +251,7 @@ class CUSTOMER(BANK):
         self.answer = input("For more Transactions <PRESS> 'M'\nTo Quit <PRESS> 'Q'\n: ")
         self.answer = self.answer.upper()
         if self.answer == "M":
-            CustomerObj.CustomerInterface()
+            CentCustomerObj.CustomerInterface()
         elif self.answer == "Q":
             exit()
 

@@ -1,4 +1,3 @@
-
 #                           THE BANKS DATABASE SYSTEM
 
 # Order by line Index [Name, Id, Location, Withdraw Charge, Minimum Balance Allowable]

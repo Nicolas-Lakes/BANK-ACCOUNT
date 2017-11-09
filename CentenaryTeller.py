@@ -5,7 +5,6 @@ IssueDay = time.strftime('%A', time.localtime())
 
 class BANK(object):
     BankInfo = BanksDataBase.CentenaryBankInfo
-    print(BankInfo)
 
 class TELLER(BANK):
     def __init__(self):
@@ -40,7 +39,7 @@ class TELLER(BANK):
             else:
                 print('Name should have atleast Six Letters! And Please Use Right Letter Case')
                 self.CustomerName = input('Re-enter Full Name (Upper Case): ')
-                TellerObj.QUIT()
+                CentTellerObj.QUIT()
 
         try:
             self.CustomerId = int(input('Enter Your ID Number: '))
@@ -55,7 +54,7 @@ class TELLER(BANK):
                                                 '\nRe-enter Your ID Number: '))
                 except ValueError:
                     print('Integers Please!')
-                TellerObj.QUIT()
+                CentTellerObj.QUIT()
         #   check Account Existence
         if self.CustomerName in self.CustomerNames:
             if str(self.CustomerId) == self.CustomerIds[self.CustomerNames.index(self.CustomerName)]:
@@ -69,7 +68,7 @@ class TELLER(BANK):
                 else:
                     print('Address should have atleast Three Letters! And Please Use Right Letter Case')
                     self.CustomerAddress = input('Re-enter Address (Upper Case): ')
-                    TellerObj.QUIT()
+                    CentTellerObj.QUIT()
             try:
                 self.CustomerPhoneNo = int(input('Enter Your Phone Number: '))
             except ValueError:
@@ -83,7 +82,7 @@ class TELLER(BANK):
                                                          '\nRe-enter Your Phone Number: '))
                     except ValueError:
                         print('Integers Please!')
-                    TellerObj.QUIT()
+                    CentTellerObj.QUIT()
             self.MinBalance = int(self.BankInfo[4])  # minimum Balance is BankInfo file index 4
             self.WithdrawCharge = int(self.BankInfo[3])  # withdraw charge is BankInfo file index 3
             try:
@@ -204,25 +203,25 @@ class TELLER(BANK):
         self.answer = input('Enter Desired Option: ')
         self.answer = self.answer.lower()
         if self.answer == 'o':
-            TellerObj.OpenAccount()
-            TellerObj.MoreTransactions()
+            CentTellerObj.OpenAccount()
+            CentTellerObj.MoreTransactions()
         elif self.answer == 'd':
-            TellerObj.CollectMoney()
-            TellerObj.MoreTransactions()
-            TellerObj.MoreTransactions()
+            CentTellerObj.CollectMoney()
+            CentTellerObj.MoreTransactions()
+            CentTellerObj.MoreTransactions()
         elif self.answer == 'i':
-            TellerObj.ProvideInfo()
-            TellerObj.MoreTransactions()
+            CentTellerObj.ProvideInfo()
+            CentTellerObj.MoreTransactions()
         elif self.answer == 'a':
-            TellerObj.LoanRequest()
-            TellerObj.MoreTransactions()
+            CentTellerObj.LoanRequest()
+            CentTellerObj.MoreTransactions()
         elif self.answer == 'c':
-            TellerObj.CloseAccount()
-            TellerObj.MoreTransactions()
+            CentTellerObj.CloseAccount()
+            CentTellerObj.MoreTransactions()
         elif self.answer == 'r':
-            TellerObj.IssueCard(input("Customer Requesting Card for first time?? <PRESS> 'F'"
+            CentTellerObj.IssueCard(input("Customer Requesting Card for first time?? <PRESS> 'F'"
                                       "'\nCustomer Lost Card?? <PRESS> 'L'\n: "))
-            TellerObj.MoreTransactions()
+            CentTellerObj.MoreTransactions()
         elif self.answer == 'q':
             exit()
 
@@ -230,7 +229,8 @@ class TELLER(BANK):
         self.answer = input("For more Transactions <PRESS> 'M'\nTo Quit <PRESS> 'Q'\n: ")
         self.answer = self.answer.upper()
         if self.answer == "M":
-            TellerObj.TellerInterface()
+            CentTellerObj.TellerInterface()
         elif self.answer == "Q":
             exit()
 
+CentTellerObj=TELLER()
